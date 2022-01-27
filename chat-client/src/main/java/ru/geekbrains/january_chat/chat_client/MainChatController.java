@@ -19,51 +19,54 @@ public class MainChatController implements Initializable {
     public VBox mainChatPanel;
 
     @FXML
-    public TextArea mainChatArea;
+    public TextArea mainChatArea;// Текстовая область
 
     @FXML
-    public ListView contactList;
+    public ListView contactList;//Посмотреть список
 
     @FXML
-    public TextField inputField;
+    public TextField inputField;//Текстовое поле
 
     @FXML
-    public Button btnSend;
+    public Button btnSend;//Кнопка
 
-    public void connectToServer(ActionEvent actionEvent) {
+    public void connectToServer(ActionEvent actionEvent) {//подключение к серверу
     }
 
-    public void disconnectFrovServer(ActionEvent actionEvent) {
+    public void disconnectFrovServer(ActionEvent actionEvent) {//отключиться от сервера
     }
 
-    public void mockAction(ActionEvent actionEvent) {
+    public void mockAction(ActionEvent actionEvent) {//имитация действия
     }
 
     public void exit(ActionEvent actionEvent) {
         System.exit(1);
+    }//выход
+
+    public void showHelp(ActionEvent actionEvent) {//показать справку
     }
 
-    public void showHelp(ActionEvent actionEvent) {
+    public void showAbout(ActionEvent actionEvent) {//показать информацию о ...
     }
 
-    public void showAbout(ActionEvent actionEvent) {
-    }
-
-    public void sendMessage(ActionEvent actionEvent) {
+    public void sendMessage(ActionEvent actionEvent) {// Отправить сообщение
         var message = inputField.getText();
         if (message.isBlank()){
             return;
         }
-        mainChatArea.appendText(message + System.lineSeparator());
+        var contact = contactList.getSelectionModel().getSelectedItems();
+        mainChatArea.appendText(contact + " " + message + System.lineSeparator());
         inputField.clear();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         var contacts = new ArrayList<String>();
+        contacts.add("ALL");
         for (int i = 0; i < 10; i++) {
             contacts.add("contact#" + (i + 1));
         }
         contactList.setItems(FXCollections.observableList(contacts));
+        contactList.getSelectionModel().selectFirst();
     }
 }
